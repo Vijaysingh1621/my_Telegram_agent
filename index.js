@@ -1,11 +1,23 @@
 const TelegramBot = require('node-telegram-bot-api');
 const axios = require('axios');
+const http = require('http');
 require('dotenv').config();
 
 // === Bot Configuration ===
 const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const VIJAY_TELEGRAM_ID = process.env.VIJAY_TELEGRAM_ID;
 const RENDER_API_URL = process.env.RENDER_API_URL; // Must end with /chat/
+const PORT = process.env.PORT || 3000;
+
+// === Create HTTP Server ===
+const server = http.createServer((req, res) => {
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
+  res.end('Vijay Bot is running! 🤖\n');
+});
+
+server.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
 
 // === Initialize Telegram Bot ===
 const bot = new TelegramBot(TELEGRAM_BOT_TOKEN, { polling: true });
